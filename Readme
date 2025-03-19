@@ -1,0 +1,87 @@
+Project: News Article Sentiment Analyzer
+Overview
+This project analyzes the sentiment of a news article using the newspaper3k library for web scraping and article parsing, TextBlob for sentiment analysis, and nltk for natural language processing tasks. It fetches an article from a specified URL, extracts its summary, and determines whether the sentiment of the summary is positive, negative, or neutral.
+
+Functionality
+Article Extraction: Downloads and parses the content of a news article from a given URL using the newspaper3k library.
+
+Summarization: Extracts the summary of the article.
+
+Sentiment Analysis: Uses TextBlob to analyze the sentiment polarity of the article summary.
+
+Sentiment Classification: Classifies the sentiment as positive, negative, or neutral based on the sentiment polarity score.
+
+Dependencies
+newspaper3k
+
+TextBlob
+
+nltk
+
+Install the required libraries using pip:
+
+bash
+pip install newspaper3k
+pip install textblob
+pip install nltk
+You may also need to download the 'punkt' resource from nltk:
+
+python
+import nltk
+nltk.download('punkt')
+Usage
+Import Libraries: Import the necessary libraries in your Python script.
+
+Specify Article URL: Provide the URL of the news article you want to analyze.
+
+Analyze Sentiment: Run the script. It will print the summary of the article and its sentiment (positive, negative, or neutral).
+
+Here's the core code snippet:
+
+python
+from textblob import TextBlob
+import nltk
+from newspaper import Article
+
+# Get the article
+url = 'https://timesofindia.indiatimes.com/videos/news/delhi-under-layer-of-haze-as-air-quality-continues-to-remain-very-poor/videoshow/95332189.cms'
+article = Article(url)
+article.download()
+article.parse()
+nltk.download('punkt') # Make sure you only download this once.
+article.nlp()
+
+# Get the summary of the article
+text = article.summary
+
+# Print the text
+print(text)
+
+# Create a TextBlob object
+obj = TextBlob(text)
+sentiment = obj.sentiment.polarity
+print(sentiment)
+
+if sentiment == 0:
+    print('The text is neutral')
+elif sentiment > 0:
+    print('The text is positive')
+else:
+    print('The text is negative')
+Example Output
+The script will output the summary of the news article, the sentiment polarity score, and the overall sentiment classification (positive, negative, or neutral).
+
+Note: The output will vary depending on the content of the news article being analyzed. The example URL provided focuses on air quality in Delhi, so the sentiment is likely to be negative.
+
+Further Development
+Implement error handling for invalid URLs or network issues.
+
+Add functionality to analyze the sentiment of the entire article content instead of just the summary.
+
+Incorporate a user interface (e.g., using Flask or Streamlit) for easier interaction.
+
+Allow users to input URLs or article text directly.
+
+Visualize sentiment trends over time by analyzing multiple articles on the same topic.
+
+Add support for multiple languages.
